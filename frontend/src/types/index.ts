@@ -151,7 +151,6 @@ export interface ServerToClientEvents {
   'auction:update': (data: { auction: AuctionState }) => void;
   'auction:paused': (data: { timeRemaining: number }) => void;
   'auction:resumed': (data: { timer: AuctionTimerState }) => void;
-  'game:reset': (data: { room: Room }) => void;
   'auction:sync': (data: {
     success: boolean;
     room: Room;
