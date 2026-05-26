@@ -1,6 +1,6 @@
 /** IPL-style auction economy — amounts in INR (whole rupees) */
 const LAKH = 100_000;
-const CRORE = 10 * LAKH * 100; // 10_000_000
+const CRORE = 100 * LAKH; // 10_000_000 (₹1cr)
 
 const QUICK_BID_INCREMENTS = [
   25 * LAKH, // ₹25L
@@ -10,8 +10,10 @@ const QUICK_BID_INCREMENTS = [
 ];
 
 const DEFAULT_STARTING_MONEY = 75 * CRORE;
-const MIN_STARTING_MONEY = 50 * CRORE;
-const MAX_STARTING_MONEY = 100 * CRORE;
+const MIN_STARTING_MONEY = 50 * CRORE; // 500_000_000
+const MAX_STARTING_MONEY = 100 * CRORE; // 1_000_000_000
+const MIN_PURSE = MIN_STARTING_MONEY;
+const MAX_PURSE = MAX_STARTING_MONEY;
 
 const MIN_BASE_PRICE = 10 * LAKH;
 const MAX_BASE_PRICE = 2 * CRORE;
@@ -45,6 +47,8 @@ module.exports = {
   DEFAULT_STARTING_MONEY,
   MIN_STARTING_MONEY,
   MAX_STARTING_MONEY,
+  MIN_PURSE,
+  MAX_PURSE,
   MIN_BASE_PRICE,
   MAX_BASE_PRICE,
   getDefaultIncrement,

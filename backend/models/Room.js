@@ -1,4 +1,10 @@
 const mongoose = require('mongoose');
+const {
+  DEFAULT_STARTING_MONEY,
+  MIN_PURSE,
+  MAX_PURSE,
+} = require('../config/economy');
+const actresses = require('../data/actresses');
 
 const roomSchema = new mongoose.Schema({
   roomCode: {
@@ -18,10 +24,10 @@ const roomSchema = new mongoose.Schema({
     default: 'Host'
   },
   settings: {
-    initialMoney: { type: Number, default: 25000, min: 5000, max: 50000 },
+    initialMoney: { type: Number, default: DEFAULT_STARTING_MONEY, min: MIN_PURSE, max: MAX_PURSE },
     timerDuration: { type: Number, default: 30, min: 10, max: 60 },
     maxPlayers: { type: Number, default: 6, min: 2, max: 8 },
-    totalCards: { type: Number, default: 15, min: 5, max: 30 }
+    totalCards: { type: Number, default: actresses.length, min: actresses.length, max: actresses.length }
   },
   players: [{
     socketId: String,

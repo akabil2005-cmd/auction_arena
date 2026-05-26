@@ -5,6 +5,7 @@ const {
   rooms,
   generateRoomCode,
   sanitizeRoomForClient,
+  sanitizePlayerForClient,
   emitFullSync,
 } = require('./store');
 const {
@@ -18,6 +19,7 @@ function setupRoomHandlers(io, socket) {
   // CREATE ROOM
   socket.on('room:create', (data) => {
     try {
+      console.log('ROOM CREATE RECEIVED', data);
       const { nickname, settings } = data;
 
       if (!validateNickname(nickname)) {
@@ -28,8 +30,12 @@ function setupRoomHandlers(io, socket) {
       const sanitizedNickname = sanitizeString(nickname);
 
       // Validate settings
+      const startingBalance = Math.round(
+        Number(settings?.startingMoney ?? settings?.startingBalance) || DEFAULT_STARTING_MONEY
+      );
+
       const roomSettings = {
-        initialMoney: Math.round(Number(settings?.startingMoney) || DEFAULT_STARTING_MONEY),
+        initialMoney: startingBalance,
         timerDuration: Math.round(Number(settings?.timerDuration) || 30),
         maxPlayers: Math.round(Number(settings?.maxPlayers) || 6),
         totalCards: actresses.length,

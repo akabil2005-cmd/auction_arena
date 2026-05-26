@@ -9,9 +9,11 @@ export const QUICK_BID_INCREMENTS = [
   5 * CRORE,
 ] as const;
 
-export const DEFAULT_STARTING_MONEY = 75 * CRORE;
-export const MIN_STARTING_MONEY = 50 * CRORE;
-export const MAX_STARTING_MONEY = 100 * CRORE;
+export const DEFAULT_STARTING_MONEY = 75 * CRORE; // 750_000_000
+export const MIN_STARTING_MONEY = 50 * CRORE; // 500_000_000
+export const MAX_STARTING_MONEY = 100 * CRORE; // 1_000_000_000
+export const MIN_PURSE = MIN_STARTING_MONEY;
+export const MAX_PURSE = MAX_STARTING_MONEY;
 
 export function getDefaultIncrement(currentBid: number): number {
   if (currentBid < 1 * CRORE) return 10 * LAKH;

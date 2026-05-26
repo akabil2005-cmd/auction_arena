@@ -2,18 +2,18 @@ const { Server } = require('socket.io');
 const { setupRoomHandlers } = require('./roomHandlers');
 const { setupAuctionHandlers } = require('./auctionHandlers');
 const { handleSocketDisconnect } = require('./disconnectHandler');
-
-function getAllowedOrigins() {
-  return (process.env.FRONTEND_URL || 'http://localhost:3000')
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean);
-}
+const { isOriginAllowed } = require('../config/cors');
 
 function initializeSocket(server) {
   const io = new Server(server, {
     cors: {
-      origin: getAllowedOrigins(),
+      origin: (origin, callback) => {
+        if (isOriginAllowed(origin)) {
+          callback(null, true);
+        } else {
+          callback(new Error(`CORS blocked origin: ${origin}`));
+        }
+      },
       methods: ['GET', 'POST'],
       credentials: true,
     },

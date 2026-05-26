@@ -2,8 +2,8 @@
 
 const {
   validateBidIncrement: economyValidateIncrement,
-  MIN_STARTING_MONEY,
-  MAX_STARTING_MONEY,
+  MIN_PURSE,
+  MAX_PURSE,
   DEFAULT_STARTING_MONEY,
 } = require('../config/economy');
 const actresses = require('../data/actresses');
@@ -76,7 +76,8 @@ function validateBidIncrement(increment, currentBid = 0) {
 
 function validateRoomSettings(settings) {
   const errors = [];
-  if (settings.initialMoney < MIN_STARTING_MONEY || settings.initialMoney > MAX_STARTING_MONEY) {
+  const purse = Math.round(Number(settings.initialMoney));
+  if (!Number.isFinite(purse) || purse < MIN_PURSE || purse > MAX_PURSE) {
     errors.push('Starting purse must be between ₹50cr and ₹100cr');
   }
   if (settings.timerDuration < 10 || settings.timerDuration > 60) {

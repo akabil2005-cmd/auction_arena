@@ -10,18 +10,15 @@ const apiRoutes = require('./routes/api');
 const app = express();
 const server = http.createServer(app);
 
-const allowedOrigins = (process.env.FRONTEND_URL || 'http://localhost:3000')
-  .split(',')
-  .map((o) => o.trim())
-  .filter(Boolean);
+const { isOriginAllowed } = require('./config/cors');
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (isOriginAllowed(origin)) {
         callback(null, true);
       } else {
-        callback(null, allowedOrigins[0]);
+        callback(new Error(`CORS blocked origin: ${origin}`));
       }
     },
     credentials: true,

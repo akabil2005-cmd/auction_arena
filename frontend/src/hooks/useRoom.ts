@@ -185,7 +185,15 @@ export function useRoom(roomCode?: string) {
     (settings: RoomSettings, nickname: string) => {
       setIsLoading(true);
       setStoredNickname(nickname);
-      emit('room:create', { settings, nickname });
+      const payload = {
+        settings: {
+          ...settings,
+          startingMoney: Math.round(settings.startingMoney),
+        },
+        nickname,
+      };
+      console.log('ROOM CREATE PAYLOAD', payload);
+      emit('room:create', payload);
     },
     [emit]
   );
